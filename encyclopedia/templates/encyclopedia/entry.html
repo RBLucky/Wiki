@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    {% if entry == None %}
+    <div style="text-align: center;">
+        <h1 style="font-family: Arial, Helvetica, sans-serif;">Page Not Found</h1>
+        <a href="https://imgflip.com/i/8tdg2w"><img src="https://i.imgflip.com/8tdg2w.jpg" title="made at imgflip.com"/></a><div><a href="https://imgflip.com/memegenerator"></a></div>
+    </div>
+    {% else %}
+        {{ entry|safe }} <br><br><br>
+        <form action="{% url 'edit' %}" method="POST"> {% csrf_token %}
+            <input type="hidden" name="title_edit" value="{{ title }}">
+            <input type="hidden" name="content_edit" value="{{ entry }}">
+            <input type="submit" name="button" value="Edit Page">
+        </form>
+    {% endif %}
+{% endblock %}
